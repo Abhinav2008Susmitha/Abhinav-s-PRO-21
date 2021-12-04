@@ -24,14 +24,14 @@ function preload(){
 function setup() {
     createCanvas(400,400);
 
-    man = createSprite(50,360,20,50);
+    man = createSprite(50,60,20,50);
     man.addAnimation("running", man_running);
     man.addAnimation("collided", man_collided);
-    man.scale = 0.5;
+    man.scale = 0.05;
 
     ground = createSprite(400,180,400,20);
     ground.addImage("ground",groundImg);
-    ground.x = ground.width /2;
+    ground.x = ground.width /1;
 
     gameOver = createSprite(300,100);
     gameOver.addImage(gameoverImg);
@@ -39,7 +39,7 @@ function setup() {
     invisibleGround = createSprite(400,190,400,10);
     invisibleGround.visible = false;
 
-    man.collide(invisibleGround);
+    
     
 
     ObstaclesGroup = createGroup();
@@ -66,7 +66,7 @@ function draw() {
         if (ground.x < 0){
             ground.x = ground.width/2;
           }
-          if(keyDown("space")&& man.y >= 100) {
+          if(keyDown("space")&& man.y >= 200) {
             man.velocityY = -5;
           }
 
@@ -76,6 +76,9 @@ function draw() {
 
           if(ObstaclesGroup.isTouching(man)){
             man.velocityY = -12;
+
+           
+
           }
     }
     else if (gameState === END) {
@@ -89,10 +92,11 @@ function draw() {
 
         ObstaclesGroup.setLifetimeEach(-1);
         ObstaclesGroup.setVelocityXEach(0);
-
+        
         
     }
-     man.collide(invisibleGround);
+
+    man.collide(invisibleGround);
 
     if(mousePressedOver()) {
         reset();
@@ -131,6 +135,8 @@ function spawnObstacles(){
        }
        obstacle.scale = 0.5;
        obstacle.lifetime = 300;
+
+       
 
      ObstaclesGroup.add(obstacle);
     }
